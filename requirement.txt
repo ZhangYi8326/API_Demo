@@ -2,4 +2,4 @@ pytest
 requests
 jsonpath
 PyHamcrest
-httprunner
+pytest-xdist
