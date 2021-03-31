@@ -5,56 +5,49 @@
 # @describe:
 import requests
 
+from test_weixin.weixin.base import Base
 
-class Address:
-    def __init__(self):
-        self.token = self.get_token()
 
-    def get_token(self):
-        """
-        获取token
-        :return:
-        """
-        r = requests.get(
-            "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww08c6259b12196817&corpsecret=hEoJeNz3yDl6MqIYJK1I4iO7fqz3zQlv8PFB73HH8CM")
-        token = r.json()["access_token"]
-        return token
-
-    def defect_member(self):
+class Address(Base):
+    def get_member_info(self, userid):
         """
         读取成员
         :return:
         """
-        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={self.token}&userid=zoey"
-        r = requests.get(get_member_url)
-        assert "Zoey" == r.json()["name"]
+        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/get"
+        params = {
+            "userid": userid
+        }
+        r = self.s.get(get_member_url, params=params)
+        return r.json()
 
-    def update_member(self):
+    def update_member(self, user_id, name, mobile):
         """
         更新成员
         :return:
         """
-        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={self.token}"
+        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/update"
         data = {
-            "userid": "zoey",
-            "mobile": "15520740912",
-            "name": "张张"
+            "userid": user_id,
+            "mobile": mobile,
+            "name": name
         }
-        r = requests.post(get_member_url, json=data)
+        r = self.s.post(get_member_url, json=data)
+        return r.json()
 
     def create_member(self, userid, name, mobile, department):
         """
         创建成员
         :return:
         """
-        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={self.token}"
+        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/create"
         data = {
             "userid": userid,
             "name": name,
             "department": department,
             "mobile": mobile
         }
-        r = requests.post(get_member_url, json=data)
+        r = self.s.post(get_member_url, json=data)
         return r
 
     def del_member(self, userid):
@@ -67,5 +60,5 @@ class Address:
             "access_token": self.token,
             "userid": userid
         }
-        r = requests.get(get_member_url, params=params)
+        r = self.s.get(get_member_url, params=params)
         return r.json()
