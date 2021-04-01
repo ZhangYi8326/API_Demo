@@ -13,12 +13,15 @@ class Base:
         self.token = self.get_token()
         self.s.params = {"access_token": self.token}
 
+    def send(self, *args, **kwargs):
+        return self.s.request(*args, **kwargs)
+
     def get_token(self):
         """
         获取token
         :return:
         """
         r = requests.get(
-            "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww08c6259b12196817&corpsecret=hEoJeNz3yDl6MqIYJK1I4iO7fqz3zQlv8PFB73HH8CM")
+            "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww08c6259b12196817&corpsecret=hEoJeNz3yDl6MqIYJK1I4kKdzEqRs1pO-zJDLSaqz4E")
         token = r.json()["access_token"]
         return token

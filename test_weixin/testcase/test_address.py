@@ -31,7 +31,7 @@ class TestAddress:
         测试新增员工
         :return:
         """
-        self.address.del_member(user_id)    # 例用删除接口进行数据处理
+        self.address.del_member(user_id)    # 利用删除接口进行数据处理
         r = self.address.create_member(user_id, name, mobile, self.department)
         assert r.json()["errmsg"] == "created"
         r = self.address.get_member_info(user_id)

@@ -14,11 +14,11 @@ class Address(Base):
         读取成员
         :return:
         """
-        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/get"
+        get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/get?"
         params = {
             "userid": userid
         }
-        r = self.s.get(get_member_url, params=params)
+        r = self.send("GET", get_member_url, params=params)
         return r.json()
 
     def update_member(self, user_id, name, mobile):
@@ -32,7 +32,7 @@ class Address(Base):
             "mobile": mobile,
             "name": name
         }
-        r = self.s.post(get_member_url, json=data)
+        r = self.send("POST", get_member_url, json=data)
         return r.json()
 
     def create_member(self, userid, name, mobile, department):
@@ -47,8 +47,8 @@ class Address(Base):
             "department": department,
             "mobile": mobile
         }
-        r = self.s.post(get_member_url, json=data)
-        return r
+        r = self.send("POST", get_member_url, json=data)
+        return r.json()
 
     def del_member(self, userid):
         """
@@ -57,8 +57,7 @@ class Address(Base):
         """
         get_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/delete"
         params = {
-            "access_token": self.token,
             "userid": userid
         }
-        r = self.s.get(get_member_url, params=params)
+        r = self.send("GET", get_member_url, param=params)
         return r.json()
