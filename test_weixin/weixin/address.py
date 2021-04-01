@@ -59,5 +59,5 @@ class Address(Base):
         params = {
             "userid": userid
         }
-        r = self.send("GET", get_member_url, param=params)
+        r = self.send("GET", get_member_url, params=params)
         return r.json()

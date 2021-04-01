@@ -33,7 +33,7 @@ class TestAddress:
         """
         self.address.del_member(user_id)    # 利用删除接口进行数据处理
         r = self.address.create_member(user_id, name, mobile, self.department)
-        assert r.json()["errmsg"] == "created"
+        assert r.get("errmsg", "network error") == "created"
         r = self.address.get_member_info(user_id)
         assert r.get("name") == name
 
