@@ -2,8 +2,7 @@
 # @Time    : 2021/3/30 17:01
 # @Author  : Zoey
 # @File    : address.py
-# @describe:
-import requests
+# @describe: 借口封装
 
 from test_weixin.weixin.base import Base
 

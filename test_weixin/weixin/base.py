@@ -2,7 +2,7 @@
 # @Time    : 2021/3/31 17:26
 # @Author  : Zoey
 # @File    : base.py
-# @describe:
+# @describe: session封装
 import requests
 
 
